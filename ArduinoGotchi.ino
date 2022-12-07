@@ -35,12 +35,13 @@
 /***** Tama Setting and Features *****/
 #define TAMA_DISPLAY_FRAMERATE  3   // 3 is optimal for Arduino UNO
 #define ENABLE_TAMA_SOUND
-//#define ENABLE_AUTO_SAVE_STATUS
+#define ENABLE_SAVE_STATUS
 //#define AUTO_SAVE_MINUTES 60    // Auto save for every hour (to preserve EEPROM lifespan)
-//#define ENABLE_LOAD_STATE_FROM_EEPROM 
-#define ENABLE_DUMP_STATE_TO_SERIAL_WHEN_START
-#define ENABLE_SERIAL_DEBUG_INPUT
-#define ENABLE_LOAD_HARCODED_STATE_WHEN_START
+#define ENABLE_LOAD_STATE_FROM_EEPROM 
+//#define ENABLE_DUMP_STATE_TO_SERIAL_WHEN_START
+//#define ENABLE_SERIAL_DUMP
+//#define ENABLE_SERIAL_DEBUG_INPUT
+//#define ENABLE_LOAD_HARCODED_STATE_WHEN_START
 /***************************/
 
 /***** Set display orientation, U8G2_MIRROR_VERTICAL is not supported *****/
@@ -129,21 +130,30 @@ static void hal_play_frequency(bool_t en) {
 static bool_t button4state = 0;
 
 static int hal_handler(void) {
+#ifdef ENABLE_SERIAL_DUMP 
+  if (Serial.available() > 0) {
+    int incomingByte = Serial.read();
+    Serial.println(incomingByte, DEC);
+    if (incomingByte==48) {          // 0
+      dumpStateToSerial();
+    }
+  }
+#endif
 #ifdef ENABLE_SERIAL_DEBUG_INPUT 
   if (Serial.available() > 0) {
     int incomingByte = Serial.read();
     Serial.println(incomingByte, DEC);
-    if (incomingByte==49) {
+    if (incomingByte==49) {  // 1
       hw_set_button(BTN_LEFT, BTN_STATE_PRESSED );
-    } else if (incomingByte==50) {
+    } else if (incomingByte==52) {  // 4 which is above 1 on a pad
       hw_set_button(BTN_LEFT, BTN_STATE_RELEASED );
-    } else if (incomingByte==51) {
+    } else if (incomingByte==50) {  // 2
       hw_set_button(BTN_MIDDLE, BTN_STATE_PRESSED );
-    } else if (incomingByte==52) {
+    } else if (incomingByte==53) {  // 5 which is above 2 on a pad
       hw_set_button(BTN_MIDDLE, BTN_STATE_RELEASED );
-    } else if (incomingByte==53) {
+    } else if (incomingByte==51) {  // 3
       hw_set_button(BTN_RIGHT, BTN_STATE_PRESSED );
-    } else if (incomingByte==54) {
+    } else if (incomingByte==54) {  // 6 which is above 3 on a pad
       hw_set_button(BTN_RIGHT, BTN_STATE_RELEASED );
     }  
   } 
@@ -163,10 +173,11 @@ static int hal_handler(void) {
   } else {
     hw_set_button(BTN_RIGHT, BTN_STATE_RELEASED );
   }
-  #ifdef ENABLE_AUTO_SAVE_STATUS 
+  #ifdef ENABLE_SAVE_STATUS 
     if (digitalRead(5) == HIGH) {
       if (button4state==0) {
         saveStateToEEPROM();
+        tone(9, 5000);
       }
       button4state = 1;
     } else {
@@ -265,7 +276,7 @@ void displayTama() {
 #endif  
 }
 
-#ifdef ENABLE_DUMP_STATE_TO_SERIAL_WHEN_START
+#if defined(ENABLE_DUMP_STATE_TO_SERIAL_WHEN_START) || defined(ENABLE_SERIAL_DUMP)
 void dumpStateToSerial() {
   uint16_t i, count=0;
   char tmp[10];
@@ -316,7 +327,7 @@ void loadHardcodedState() {
  }
 #endif
 
-#ifdef ENABLE_AUTO_SAVE_STATUS 
+#if defined(ENABLE_SAVE_STATUS) || defined(AUTO_SAVE_MINUTES)
 void saveStateToEEPROM() {
   int i=0;
   if (EEPROM.read(0)!=12) {
@@ -400,7 +411,7 @@ void setup() {
 
 void loop() {
   tamalib_mainloop_step_by_step();
-#ifdef ENABLE_AUTO_SAVE_STATUS   
+#ifdef AUTO_SAVE_MINUTES    
   if ((millis() - lastSaveTimestamp) > (AUTO_SAVE_MINUTES * 60 * 1000)) {
     lastSaveTimestamp = millis();
     saveStateToEEPROM();
