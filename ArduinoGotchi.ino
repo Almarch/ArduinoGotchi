@@ -35,6 +35,7 @@
 /***** Tama Setting and Features *****/
 #define TAMA_DISPLAY_FRAMERATE  6
 #define ENABLE_TAMA_SOUND
+//#define ENABLE_REAL_TIME
 //#define ENABLE_SAVE_STATUS
 //#define AUTO_SAVE_MINUTES 60    // Auto save for every hour (to preserve EEPROM lifespan)
 //#define ENABLE_LOAD_STATE_FROM_EEPROM 
@@ -86,11 +87,13 @@ static void hal_log(log_level_t level, char *buff, ...) {
 }
 
 static void hal_sleep_until(timestamp_t ts) {
-  //int32_t remaining = (int32_t) (ts - hal_get_timestamp());
-  //if (remaining > 0) {
-    //delayMicroseconds(1);
-    //delay(1);
-  //}
+  #ifdef ENABLE_REAL_TIME
+  int32_t remaining = (int32_t) (ts - hal_get_timestamp());
+  if (remaining > 0) {
+    delayMicroseconds(1);
+    delay(1);
+  }
+  #endif
 }
 
 static timestamp_t hal_get_timestamp(void) {
