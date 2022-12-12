@@ -1,21 +1,21 @@
-# ArduinoGotchi for ESP8266
+# A tamagotchi emulator for ESP8622 / ESP32 boards
 
 ![Tamagotchi P1 Actual Devices](../main/images/TamaP1_devices.jpg)
 
 ## Synopsis
 
-This fork of [ArduinoGotchi](https://github.com/GaryZ88/ArduinoGotchi) is adapted to ESP8266, and has been successfully tested on a WeMos D1-mini board. The emulator relies on [TamaLib](https://github.com/jcrona/tamalib).
+This fork of [ArduinoGotchi](https://github.com/GaryZ88/ArduinoGotchi) is adapted to ESP8266 and ESP32 boards. The emulator relies on [TamaLib](https://github.com/jcrona/tamalib).
 
-Adaptation to ESP8266 is heavily inspired from [this other fork](https://github.com/anabolyc/Tamagotchi), however, it is designed to be compiled and uploaded in an [Arduino IDE](https://www.arduino.cc/en/software) framework.
+Adaptation to ESP32/ESP8266 is heavily inspired from [this other fork](https://github.com/anabolyc/Tamagotchi), however, it is designed to be compiled and uploaded in an [Arduino IDE](https://www.arduino.cc/en/software) framework.
 
 The emulation is on real time. It allows saving the game (by pressing the 3 buttons simultaneously), afterward it will be automatically loaded.
 
-/!\ EEPROM writing can only be performed a limited number of times, use with parcimony. EEPROM reading is not concerned by this issue.
+/!\ EEPROM can only be written a limited number of times, use with parcimony. EEPROM reading is not concerned by this issue.
 
 ## Hardware
 
 You will need the following components:
-  - ESP8266 D1-mini board
+  - An ESP8266 or ESP32 board, e.g. ESP8266 WeMos D1-mini
   - 1K resistor x 3
   - Push button x 3
   - Buzzer 3V
