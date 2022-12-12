@@ -20,7 +20,7 @@
 
 #include <U8g2lib.h>
 #include <Wire.h>
-#include <EEPROM.h>
+//#include <EEPROM.h>
 #include "tamalib.h"
 #include "hw.h"
 #include "bitmaps.h"
@@ -33,11 +33,11 @@
 /****************************************/
 
 /***** Tama Setting and Features *****/
-#define TAMA_DISPLAY_FRAMERATE  3   // 3 is optimal for Arduino UNO
+#define TAMA_DISPLAY_FRAMERATE  6
 #define ENABLE_TAMA_SOUND
-#define ENABLE_SAVE_STATUS
+//#define ENABLE_SAVE_STATUS
 //#define AUTO_SAVE_MINUTES 60    // Auto save for every hour (to preserve EEPROM lifespan)
-#define ENABLE_LOAD_STATE_FROM_EEPROM 
+//#define ENABLE_LOAD_STATE_FROM_EEPROM 
 //#define ENABLE_DUMP_STATE_TO_SERIAL_WHEN_START
 //#define ENABLE_SERIAL_DUMP
 //#define ENABLE_SERIAL_DEBUG_INPUT
@@ -61,6 +61,12 @@ U8G2_SSD1306_128X64_NONAME_2_HW_I2C display(U8G2_R2);
 #ifdef U8G2_LAYOUT_MIRROR
 U8G2_SSD1306_128X64_NONAME_2_HW_I2C display(U8G2_MIRROR);
 #endif
+
+#define PIN_BTN_L 12 // D6
+#define PIN_BTN_M 13 // D7
+#define PIN_BTN_R 15 // D8
+//define PIN_BTN_SAVE 3 // D5
+#define PIN_BUZZER 2 // D4
 
 /**** TamaLib Specific Variables ****/
 static uint16_t current_freq = 0; 
@@ -120,9 +126,9 @@ static void hal_set_frequency(u32_t freq) {
 static void hal_play_frequency(bool_t en) {
 #ifdef ENABLE_TAMA_SOUND 
   if (en) {
-    tone(9, current_freq); 
+    tone(PIN_BUZZER, current_freq); 
   } else {
-    noTone(9); 
+    noTone(PIN_BUZZER); 
   }
 #endif  
 }
@@ -158,26 +164,26 @@ static int hal_handler(void) {
     }  
   } 
 #else  
-  if (digitalRead(2) == HIGH) {
+  if (digitalRead(PIN_BTN_L) == HIGH) {
     hw_set_button(BTN_LEFT, BTN_STATE_PRESSED );
   } else {
     hw_set_button(BTN_LEFT, BTN_STATE_RELEASED );
   }
-  if (digitalRead(3) == HIGH) {
+  if (digitalRead(PIN_BTN_M) == HIGH) {
     hw_set_button(BTN_MIDDLE, BTN_STATE_PRESSED );
   } else {
     hw_set_button(BTN_MIDDLE, BTN_STATE_RELEASED );
   }
-  if (digitalRead(4) == HIGH) {
+  if (digitalRead(PIN_BTN_R) == HIGH) {
     hw_set_button(BTN_RIGHT, BTN_STATE_PRESSED );
   } else {
     hw_set_button(BTN_RIGHT, BTN_STATE_RELEASED );
   }
   #ifdef ENABLE_SAVE_STATUS 
-    if (digitalRead(5) == HIGH) {
+    if (digitalRead(PIN_BTN_SAVE) == HIGH) {
       if (button4state==0) {
         saveStateToEEPROM();
-        tone(9, 5000);
+        tone(PIN_BUZZER, 5000);
       }
       button4state = 1;
     } else {
@@ -373,11 +379,11 @@ uint8_t reverseBits(uint8_t num) {
 
 void setup() {
   Serial.begin(9600);
-  pinMode(2, INPUT);
-  pinMode(3, INPUT);
-  pinMode(4, INPUT);
-  pinMode(5, INPUT);
-  pinMode(9, OUTPUT);
+  pinMode(PIN_BTN_L, INPUT);
+  pinMode(PIN_BTN_M, INPUT);
+  pinMode(PIN_BTN_R, INPUT);
+  //pinMode(PIN_BTN_SAVE, INPUT);
+  pinMode(PIN_BUZZER, OUTPUT);
 
   display.setI2CAddress(DISPLAY_I2C_ADDRESS * 2);  // required if display does not use default address of 0x3C
   display.begin();  // initialize U8g2 graphics library for selected display module
