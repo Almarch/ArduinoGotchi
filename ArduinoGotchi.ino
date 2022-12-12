@@ -35,7 +35,7 @@
 /***** Tama Setting and Features *****/
 #define TAMA_DISPLAY_FRAMERATE  6
 #define ENABLE_TAMA_SOUND
-//#define ENABLE_REAL_TIME
+#define ENABLE_REAL_TIME
 //#define ENABLE_SAVE_STATUS
 //#define AUTO_SAVE_MINUTES 60    // Auto save for every hour (to preserve EEPROM lifespan)
 //#define ENABLE_LOAD_STATE_FROM_EEPROM 
