@@ -38,7 +38,7 @@ Connect the board as follows:
 | VDD            | 3V3  |
 | Ground         | G    |
 
-VDD is distributed the push buttons and to the screen. More info about this mapping can be read [here](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/).
+VDD is distributed the push buttons and to the screen. More info about the setup can be accessed [here](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/).
 
 /!\ the device doesn't start well when D4 is connected. If the issue occurs, unplug D4, start the device, and plug D4.
 
