@@ -20,11 +20,11 @@
 
 #include <U8g2lib.h>
 #include <Wire.h>
-//#include <EEPROM.h>
 #include "tamalib.h"
 #include "hw.h"
 #include "bitmaps.h"
 #include "hardcoded_state.h"
+#include "savestate.h"
 
 /***** U8g2 SSD1306 Library Setting *****/
 #define DISPLAY_I2C_ADDRESS 0x3C
@@ -36,11 +36,11 @@
 #define TAMA_DISPLAY_FRAMERATE  6
 #define ENABLE_TAMA_SOUND
 #define ENABLE_REAL_TIME
-//#define ENABLE_SAVE_STATUS
+#define ENABLE_SAVE_STATUS
 //#define AUTO_SAVE_MINUTES 60    // Auto save for every hour (to preserve EEPROM lifespan)
-//#define ENABLE_LOAD_STATE_FROM_EEPROM 
+#define ENABLE_LOAD_STATE_FROM_EEPROM 
 //#define ENABLE_DUMP_STATE_TO_SERIAL_WHEN_START
-//#define ENABLE_SERIAL_DUMP
+#define ENABLE_SERIAL_DUMP
 //#define ENABLE_SERIAL_DEBUG_INPUT
 //#define ENABLE_LOAD_HARCODED_STATE_WHEN_START
 /***************************/
@@ -183,16 +183,28 @@ static int hal_handler(void) {
     hw_set_button(BTN_RIGHT, BTN_STATE_RELEASED );
   }
   #ifdef ENABLE_SAVE_STATUS 
-    if (digitalRead(PIN_BTN_SAVE) == HIGH) {
+    if (digitalRead(PIN_BTN_L) == HIGH && digitalRead(PIN_BTN_M) == HIGH && digitalRead(PIN_BTN_R) == HIGH) {
       if (button4state==0) {
-        saveStateToEEPROM();
-        tone(PIN_BUZZER, 5000);
+
+        saveStateToEEPROM(&cpuState);
+        
+        noTone(PIN_BUZZER);
+        tone(PIN_BUZZER, 700,100);
+        delay(120);
+        noTone(PIN_BUZZER);
+        tone(PIN_BUZZER, 880,100);
+        delay(120);
+        noTone(PIN_BUZZER);
+        tone(PIN_BUZZER, 1175,100);
+        delay(120);
+        noTone(PIN_BUZZER);
       }
       button4state = 1;
     } else {
       button4state = 0;
     }
   #endif
+
 #endif  
   return 0;
 }
@@ -318,58 +330,6 @@ void dumpStateToSerial() {
 } 
 #endif
 
-#ifdef ENABLE_LOAD_HARCODED_STATE_WHEN_START
-void loadHardcodedState() {
-  cpu_get_state(&cpuState);
-  u4_t *memTemp = cpuState.memory;
-  uint16_t i;
-  uint8_t *cpuS = (uint8_t *)&cpuState;
-  for(i=0;i<sizeof(cpu_state_t);i++) {
-    cpuS[i]=pgm_read_byte_near(hardcodedState+i);
-  }
-  for(i=0;i<MEMORY_SIZE;i++) {
-    memTemp[i]=pgm_read_byte_near(hardcodedState+ sizeof(cpu_state_t) + i);
-  }
-  cpuState.memory = memTemp;
-  cpu_set_state(&cpuState);
-  Serial.println("Hardcoded");
- }
-#endif
-
-#if defined(ENABLE_SAVE_STATUS) || defined(AUTO_SAVE_MINUTES)
-void saveStateToEEPROM() {
-  int i=0;
-  if (EEPROM.read(0)!=12) {
-    // Clear EEPROM
-    for (i = 0 ; i < EEPROM.length() ; i++) {
-      EEPROM.write(i, 0);
-    }
-  }
-  EEPROM.update(0, 12);
-  cpu_get_state(&cpuState);
-  EEPROM.put(1, cpuState); 
-  for(i=0;i<MEMORY_SIZE;i++) {
-    EEPROM.update(1 + sizeof(cpu_state_t) + i, cpuState.memory[i]);
-  }
-  Serial.println("S");
-}
-#endif
-
-#ifdef ENABLE_LOAD_STATE_FROM_EEPROM
-void loadStateFromEEPROM() {
-  cpu_get_state(&cpuState);
-  u4_t *memTemp = cpuState.memory;
-  EEPROM.get(1, cpuState);
-  cpu_set_state(&cpuState);
-  int i=0;
-  for(i=0;i<MEMORY_SIZE;i++) {
-    memTemp[i] = EEPROM.read(1 + sizeof(cpu_state_t) + i);
-  }
-  Serial.println("L");
-}
-#endif
-
-
 uint8_t reverseBits(uint8_t num) {
     uint8_t reverse_num = 0;
     uint8_t i;
@@ -395,13 +355,18 @@ void setup() {
   tamalib_set_framerate(TAMA_DISPLAY_FRAMERATE);
   tamalib_init(1000000);
 
-#ifdef ENABLE_LOAD_STATE_FROM_EEPROM 
-  if (EEPROM.read(0)==12) {
-    loadStateFromEEPROM();
-  }
-#endif  
+#if defined(ENABLE_SAVE_STATUS) || defined(AUTO_SAVE_MINUTES) || defined(ENABLE_LOAD_STATE_FROM_EEPROM)
+ initEEPROM();
+#endif
 
-#ifdef ENABLE_LOAD_HARCODED_STATE_WHEN_START
+#ifdef ENABLE_LOAD_STATE_FROM_EEPROM
+  if (validEEPROM())
+  {
+    loadStateFromEEPROM(&cpuState);
+  } else {
+    Serial.println(F("No magic number in state, skipping state restore"));
+  }
+#elif ENABLE_LOAD_HARCODED_STATE_WHEN_START
   loadHardcodedState();
 #endif
 
@@ -423,7 +388,7 @@ void loop() {
 #ifdef AUTO_SAVE_MINUTES    
   if ((millis() - lastSaveTimestamp) > (AUTO_SAVE_MINUTES * 60 * 1000)) {
     lastSaveTimestamp = millis();
-    saveStateToEEPROM();
+    saveStateToEEPROM(&cpuState);
   }
 #endif  
 }
