@@ -22,7 +22,7 @@
 #include "cpu.h"
 #include "hal.h"
 
-#define DEFAULT_FRAMERATE				3// fps
+#define DEFAULT_FRAMERATE				6// fps
 
 static exec_mode_t exec_mode = EXEC_MODE_RUN;
 

@@ -17,14 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#include <avr/pgmspace.h>
+#include <pgmspace.h>
 #include "cpu.h"
 #include "hw.h"
 #include "hal.h"
 //#include "rom_new.h"
 #include "rom_12bit.h"
 
-#define CPU_SPEED_RATIO      0
+#define CPU_SPEED_RATIO      1
 #define TICK_FREQUENCY        32768 // Hz
 
 #define TIMER_1HZ_PERIOD      32768 // in ticks
