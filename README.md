@@ -1,89 +1,67 @@
-# ArduinoGotchi - A real Tamagotchi emulator for Arduino UNO
-
-## Synopsis
-
-**ArduinoGotchi** is a real [Tamagotchi P1](https://tamagotchi.fandom.com/wiki/Tamagotchi_(1996_Pet)) emulator running in Arduino UNO hardware. The emulation core is based on [TamaLib](https://github.com/jcrona/tamalib) with intensive optimization to make it fit into UNO's hardware that only comes with 32K Flash 2K RAM.
+# ArduinoGotchi for ESP8266
 
 ![Tamagotchi P1 Actual Devices](../main/images/TamaP1_devices.jpg)
 
-### Demonstration (click the photo to watch)
-[![Demo 1](https://img.youtube.com/vi/MJvAr_od06M/0.jpg)](https://www.youtube.com/watch?v=MJvAr_od06M)
-[![Demo 2](https://img.youtube.com/vi/ab3_0PLWAnc/0.jpg)](https://www.youtube.com/watch?v=ab3_0PLWAnc)
+## Synopsis
 
-## How to build
+This fork of [ArduinoGotchi](https://github.com/GaryZ88/ArduinoGotchi) is adapted to ESP8266, and has been successfully tested on a WeMos D1-mini board. The emulator relies on [TamaLib](https://github.com/jcrona/tamalib).
 
-### Prerequisites
+Adaptation to ESP8266 is heavily inspired from [this other fork](https://github.com/anabolyc/Tamagotchi), however, it is designed to be compiled and uploaded in an [Arduino IDE](https://www.arduino.cc/en/software) framework.
 
-- **Git** - command line tool, please follows [Getting started installing Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-- **Arduino IDE** - [Download and Install](https://www.arduino.cc/en/software)
-- **Java 8 Runtime** - [Download and install](https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html)
-- **Parts**
-  - Arduino UNO (also compatible with Arduino Micro, Arduino Nano, Arduino Mega)
+The emulation is on real time. It allows saving the game (by pressing the 3 buttons simultaneously), afterward it will be automatically loaded.
+
+/!\ EEPROM writing can only be performed a limited number of times, use with parcimony. EEPROM reading is not concerned by this issue.
+
+## Hardware
+
+You will need the following components:
+  - ESP8266 D1-mini board
   - 1K resistor x 3
   - Push button x 3
-  - Buzzer 
-  - SSD1306 I2C OLED 128x64  
-- **Tamagotchi P1 ROM** - ArduinoGotchi being an emulator, it requires a compatible Tamagotchi P1 ROM named 
-**rom.bin** and place it in the project folder. Due to the copyright issue, Rom file is not provided, you have to find it yourself
-- Clone this repository from Github into your PC, run the following commands:
-```
-git clone https://github.com/GaryZ88/ArduinoGotchi
-cd ArduinoGotchi
-```
+  - Buzzer 3V
+  - SSD1306 I2C OLED 128x64 
 
-### Preparing a ROM data file
-- Put the **rom.bin** in the project folder, i.e. /ArduinoGotchi/
-- Run the below commands, if success, it will generate a file named "**rom_12bit.h**" in the project folder
+You may have to soldier the board to its grid ; and a breadboard would be of great help.
+
+Use the resistors as [pull-down resistors](https://en.wikipedia.org/wiki/Pull-up_resistor) for each of the push buttons (this is also well illustrated [here](https://github.com/GaryZ88/ArduinoGotchi)).
+
+Connect the board as follows:
+
+| Name           | PIN  |
+|----------------|------|
+| Screen SCK     | D1   |
+| Screen SDA     | D2   |
+| Buzzer         | D4   |
+| Left Button    | D5   |
+| Middle Button  | D6   |
+| Right Button   | D7   |
+| VDD            | 3V3  |
+| Ground         | G    |
+
+VDD is distributed the push buttons and to the screen. More info about this mapping can be read [here](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/).
+
+/!\ the device doesn't start well when D4 is connected. If the issue occurs, unplug D4, start the device, and plug D4.
+
+## Software
+
+The emulation requires a ROM converted to 12 bits as explained [here](https://github.com/GaryZ88/ArduinoGotchi).
+
+Clone this repository:
 ```
-cd ArduinoGotchi
-java TamaRomConvert rom.bin
-```
-
-### Compile and Run 
-- Compose the electronic parts, please follow the circult diagram below
-- Launch Arduino IDE
-- Open "ArduinoGotchi.ino" in the project folder
-- Connect your Arduino UNO to PC/Mac with USB cable
-- Select your board
-  - Main Menu -> Tools -> Board -> Arduino AVR Boards -> Arduino UNO
-- Install U8g2 library
-  - Main Menu -> Sketch -> Include Library -> Manage Libraries
-  - Search "U8g2" and install
-- Click the "Upload" button
-![Compile and upload success](../main/images/Compile_and_upload.png)
-
-### Additional notes
-- To activate your pet, you have to configure the clock by pressing the middle button. Otherwise, your pet will not alive.
-- The emulator will save the game status for every 60 mintues.
-- The speed of the emulator is a bit slower than the actual Tamagotchi device, still, it is fun.
-- There are a few settings in the main program (**ArduinoGotchi.ino**) that you can adjust to fit your need:
-```
-/***** U8g2 SSD1306 Library Setting *****/
-#define DISPLAY_I2C_ADDRESS 0x3C
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 64 // OLED display height, in pixels
-/****************************************/
-
-/***** Tama Setting and Features *****/
-#define TAMA_DISPLAY_FRAMERATE  3   // 3 is optimal for Arduino UNO
-#define ENABLE_TAMA_SOUND
-#define ENABLE_AUTO_SAVE_STATUS
-#define AUTO_SAVE_MINUTES 60    // Auto save for every hour (to preserve EEPROM lifespan)
-#define ENABLE_LOAD_STATE_FROM_EEPROM 
-//#define ENABLE_DUMP_STATE_TO_SERIAL_WHEN_START
-//#define ENABLE_SERIAL_DEBUG_INPUT
-//#define ENABLE_LOAD_HARCODED_STATE_WHEN_START
-/***************************/
-
-/***** Set display orientation, U8G2_MIRROR_VERTICAL is not supported *****/
-#define U8G2_LAYOUT_NORMAL
-//#define U8G2_LAYOUT_ROTATE_180
-//#define U8G2_LAYOUT_MIRROR
-/**************************************************************************/
+git clone https://github.com/Almarch/ArduinoGotchi
 ```
 
-### Circuit Diagram
-![Circuit Diagram](../main/images/circuit_diagram_01.png)
+Then open the .ino file in Arduino IDE. You will need to install the ESP8622 library as explained in [this tutorial](https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ide/). It consists in adding the following line:
+```
+https://dl.espressif.com/dl/package_esp32_index.json, http://arduino.esp8266.com/stable/package_esp8266com_index.json
+```
+into File/Preferences/Additional Boards Manager URLs ; then looking for "esp8266" in Tools/Board and install the library.
 
-### License
-ArduinoGotchi is distributed under the GPLv2 license. See the LICENSE file for more information.
+You will also need to install U8g2 library in Tool/Manage Libraries.
+
+![PXL_20221212_131834562](https://user-images.githubusercontent.com/13364928/207065880-a4230d45-315f-40f4-8c44-0e9b3540b37c.jpg)
+
+When the environment is ready, select the appropriate board: Tools/Board/ESP8266 (X.X.X)/"LOLIN(WEMOS) D1 R2 & Mini"
+And the port: Tools/port/. A single port should appear, corresponding to the one to which the board is connected via USB.
+
+Finally, use the right arrow: "UPLOAD" and let the mystery of life begin  👾
