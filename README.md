@@ -19,9 +19,9 @@ You will need the following components:
   - 1K resistor x 3
   - Push button x 3
   - Buzzer 3V
-  - SSD1306 I2C OLED 128x64 
+  - SSD1306 I2C OLED 128x64
 
-You may have to soldier the board to its grid ; and a breadboard would be of great help.
+You may have to soldier the board to its pin grid.
 
 Use the resistors as [pull-down resistors](https://en.wikipedia.org/wiki/Pull-up_resistor) for each of the push buttons (this is also well illustrated [here](https://github.com/GaryZ88/ArduinoGotchi)).
 
@@ -38,7 +38,7 @@ Connect the board as follows:
 | VDD            | 3V3  |
 | Ground         | G    |
 
-VDD is distributed the push buttons and to the screen. More info about the setup can be accessed [here](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/).
+VDD is distributed to the push buttons and to the screen. More info about the setup can be accessed [here](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/).
 
 /!\ the device doesn't start well when D4 is connected. If the issue occurs, unplug D4, start the device, and plug D4.
 
