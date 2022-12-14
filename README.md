@@ -1,6 +1,6 @@
 # A tamagotchi emulator for ESP8622 / ESP32 boards
 
-![Tamagotchi P1 Actual Devices](../main/images/TamaP1_devices.jpg)
+![PXL_20221214_120159887](https://user-images.githubusercontent.com/13364928/207591462-e84e4787-1686-4ffa-be52-ca9da1ada235.jpg)
 
 ## Synopsis
 
