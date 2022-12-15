@@ -366,8 +366,8 @@ void setup() {
   } else {
     Serial.println(F("No magic number in state, skipping state restore"));
   }
-#elif ENABLE_LOAD_HARCODED_STATE_WHEN_START
-  loadHardcodedState();
+#elif defined(ENABLE_LOAD_HARCODED_STATE_WHEN_START)
+  loadHardcodedState(&cpuState);
 #endif
 
 /*
