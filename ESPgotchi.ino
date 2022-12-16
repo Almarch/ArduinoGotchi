@@ -66,8 +66,8 @@ U8G2_SSD1306_128X64_NONAME_2_HW_I2C display(U8G2_MIRROR);
 #define PIN_BTN_L 12 // D6
 #define PIN_BTN_M 13 // D7
 #define PIN_BTN_R 15 // D8
-//define PIN_BTN_SAVE 3 // D5
-#define PIN_BUZZER 2 // D4
+//define PIN_BTN_SAVE 3
+#define PIN_BUZZER 14 // D5
 
 /**** TamaLib Specific Variables ****/
 static uint16_t current_freq = 0; 
