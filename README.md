@@ -58,7 +58,7 @@ into File/Preferences/Additional Boards Manager URLs ; then looking for "esp8266
 
 You will also need to install U8g2 library in Tool/Manage Libraries.
 
-![PXL_20221212_131834562](https://user-images.githubusercontent.com/13364928/207065880-a4230d45-315f-40f4-8c44-0e9b3540b37c.jpg)
+![PXL_20221216_131808264_4](https://user-images.githubusercontent.com/13364928/208108606-a6d87cba-38c4-466b-8830-3f7be8aa5aea.jpg)
 
 When the environment is ready, select the appropriate board: Tools/Board/ESP8266 (X.X.X)/"LOLIN(WEMOS) D1 R2 & Mini"
 And the port: Tools/port/. A single port should appear, corresponding to the one to which the board is connected via USB.
