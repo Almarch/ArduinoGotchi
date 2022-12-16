@@ -10,7 +10,7 @@ Adaptation to ESP32/ESP8266 is heavily inspired from [this other fork](https://g
 
 The emulation is on real time. It allows saving the game (by pressing the 3 buttons simultaneously), afterward it will be automatically loaded.
 
-/!\ EEPROM can only be written a limited number of times, use with parcimony. EEPROM reading is not concerned by this issue.
+/!\ EEPROM can only be written a limited number of times, use with parcimony.
 
 ## Hardware
 
@@ -20,6 +20,7 @@ You will need the following components:
   - Push button x 3
   - Buzzer 3V
   - SSD1306 I2C OLED 128x64
+  - Breadboard and wire
 
 You may have to soldier the board to its pin grid.
 
@@ -31,16 +32,14 @@ Connect the board as follows:
 |----------------|------|
 | Screen SCK     | D1   |
 | Screen SDA     | D2   |
-| Buzzer         | D4   |
-| Left Button    | D5   |
-| Middle Button  | D6   |
-| Right Button   | D7   |
+| Buzzer         | D5   |
+| Left Button    | D6   |
+| Middle Button  | D7   |
+| Right Button   | D8   |
 | VDD            | 3V3  |
 | Ground         | G    |
 
 VDD is distributed to the push buttons and to the screen. More info about the setup can be accessed [here](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/).
-
-/!\ the device doesn't start well when D4 is connected. If the issue occurs, unplug D4, start the device, and plug D4.
 
 ## Software
 
