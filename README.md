@@ -47,7 +47,7 @@ The emulation requires a ROM converted to 12 bits as explained [here](https://gi
 
 Clone this repository:
 ```
-git clone https://github.com/Almarch/ArduinoGotchi
+git clone https://github.com/Almarch/ESPgotchi.git
 ```
 
 Then open the .ino file in Arduino IDE. You will need to install the ESP8622 library as explained in [this tutorial](https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ide/). It consists in adding the following line:
