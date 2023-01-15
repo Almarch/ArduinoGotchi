@@ -1,12 +1,12 @@
-# A tamagotchi emulator for ESP8622 / ESP32 boards
+# A tamagotchi emulator for ESP8266 boards
 
 ![PXL_20221216_121018390_2](https://user-images.githubusercontent.com/13364928/208096173-751cd1a7-0d5d-4028-bfaf-60bac058f4a5.jpg)
 
 ## Synopsis
 
-This fork of [ArduinoGotchi](https://github.com/GaryZ88/ArduinoGotchi) is adapted to ESP8266 and ESP32 boards. The emulator relies on [TamaLib](https://github.com/jcrona/tamalib).
+This fork of [ArduinoGotchi](https://github.com/GaryZ88/ArduinoGotchi) is adapted to ESP8266 boards. The emulator relies on [TamaLib](https://github.com/jcrona/tamalib).
 
-Adaptation to ESP32/ESP8266 is heavily inspired from [this other fork](https://github.com/anabolyc/Tamagotchi), however, it is designed to be compiled and uploaded in an [Arduino IDE](https://www.arduino.cc/en/software) framework.
+Adaptation to ESP8266 is heavily inspired from [this other fork](https://github.com/anabolyc/Tamagotchi), however, it is designed to be compiled and uploaded in an [Arduino IDE](https://www.arduino.cc/en/software) framework.
 
 The emulation is on real time. It allows saving the game (by pressing the 3 buttons simultaneously), afterward it will be automatically loaded.
 
@@ -15,7 +15,7 @@ The emulation is on real time. It allows saving the game (by pressing the 3 butt
 ## Hardware
 
 You will need the following components:
-  - An ESP8266 or ESP32 board, e.g. ESP8266 WeMos D1-mini
+  - An ESP8266 board, e.g. ESP8266 WeMos D1-mini
   - 1K resistor x 3
   - Push button x 3
   - Buzzer 3V
@@ -28,18 +28,20 @@ Use the resistors as [pull-down resistors](https://en.wikipedia.org/wiki/Pull-up
 
 Connect the board as follows:
 
-| Name           | PIN  |
-|----------------|------|
-| Screen SCK     | D1   |
-| Screen SDA     | D2   |
-| Buzzer         | D5   |
-| Left Button    | D6   |
-| Middle Button  | D7   |
-| Right Button   | D8   |
-| VDD            | 3V3  |
-| Ground         | G    |
+| Name           | Id   | PIN  |
+|----------------|------|------|
+| Screen SCK     | -    | D1   |
+| Screen SDA     | -    | D2   |
+| Buzzer         | 14   | D5   |
+| Left Button    | 12   | D6   |
+| Middle Button  | 13   | D7   |
+| Right Button   | 15   | D8   |
+| VDD            | -    | 3V3  |
+| Ground         | -    | G    |
 
 VDD is distributed to the push buttons and to the screen. More info about the setup can be accessed [here](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/).
+
+ESP32 boards are not currently supported due to the lack of the tone function for ESP32.
 
 ## Software
 
@@ -50,7 +52,7 @@ Clone this repository:
 git clone https://github.com/Almarch/ESPgotchi.git
 ```
 
-Then open the .ino file in Arduino IDE. You will need to install the ESP8622 library as explained in [this tutorial](https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ide/). It consists in adding the following line:
+Then open the .ino file in Arduino IDE. You will need to install the ESP8266 library as explained in [this tutorial](https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ie/). It consists in adding the following line:
 ```
 https://dl.espressif.com/dl/package_esp32_index.json, http://arduino.esp8266.com/stable/package_esp8266com_index.json
 ```
