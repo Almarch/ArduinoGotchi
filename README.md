@@ -45,7 +45,15 @@ ESP32 boards are not currently supported due to the lack of the tone function fo
 
 ## Software
 
-The emulation requires a ROM converted to 12 bits as explained [here](https://github.com/GaryZ88/ArduinoGotchi).
+The emulation requires a ROM converted to 12 bits:
+
+Put the rom.bin in the project folder, i.e. /ESPgotchi/
+Run the below commands, if success, it will generate a file named "rom_12bit.h" in the project folder
+
+```
+cd ESPgotchi
+java TamaRomConvert rom.bin
+```
 
 Clone this repository:
 ```
