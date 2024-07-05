@@ -10,7 +10,7 @@ It has been optimized and restructured to fit the [Arduino Uno](https://github.c
 
 From the Arduino fork, TamaLIB has been adapted to [ESP8266](https://github.com/anabolyc/Tamagotchi) and [ESP32](https://github.com/RBEGamer/TamagotchiESP32), both chips being powerful enough for a real-time emulation. These two ESP forks rely on a different IDE.
 
-The goal of this fork is to combine the beginner-friendliness of the Arduino IDE and the performance of the ESP chips. 
+The goal of this fork is to combine the beginner-friendliness of the Arduino IDE and the performance of the ESP chips. It relies on the developments from all previously listed projects.
 
 An extra functionality is added to the original gameplay: the game state can be saved by a simultaneous click on both 3 buttons (right, middle, left). EEPROM can only be written a limited number of times, this functionality should be used with parcimony.
 
