@@ -1,34 +1,35 @@
-# A tamagotchi emulator for ESP8266 boards
+# NanoGotchi: A Tamagotchi emulator for ESP chips × Arduino IDE
 
 ![PXL_20221216_121018390_2](https://user-images.githubusercontent.com/13364928/208096173-751cd1a7-0d5d-4028-bfaf-60bac058f4a5.jpg)
 
-## Synopsis
+## <img src="https://github.com/Almarch/tamaR/blob/main/inst/www/icon.png" alt="TaMaGoTcHi" width="35"/> Synopsis
 
-This fork of [ArduinoGotchi](https://github.com/GaryZ88/ArduinoGotchi) is adapted to ESP8266 boards. The emulator relies on [TamaLib](https://github.com/jcrona/tamalib).
+[TamaLIB](https://github.com/jcrona/tamalib) is an hardware-agnostic Original P1 Tamagotchi emulator.
 
-Adaptation to ESP8266 is heavily inspired from [this other fork](https://github.com/anabolyc/Tamagotchi), however, it is designed to be compiled and uploaded in an [Arduino IDE](https://www.arduino.cc/en/software) framework.
+It has been optimized and restructured to fit the [Arduino Uno](https://github.com/GaryZ88/ArduinoGotchi) board. The Arduino environment comes with an [IDE](https://www.arduino.cc/en/software) designed for ease of use. However, the Arduino Uno board, powered by an ATmega328P chip, is not powerful enough to follow up the real-time emulation.
 
-The emulation is on real time. It allows saving the game (by pressing the 3 buttons simultaneously), afterward it will be automatically loaded.
+From the Arduino fork, TamaLIB has been adapted to [ESP8266](https://github.com/anabolyc/Tamagotchi) and [ESP32](https://github.com/RBEGamer/TamagotchiESP32), both chips being powerful enough for a real-time emulation. These two ESP forks rely on a different IDE.
 
-/!\ EEPROM can only be written a limited number of times, use with parcimony.
+The goal of this fork is to combine the beginner-friendliness of the Arduino IDE and the performance of the ESP chips. 
+
+An extra functionality is added to the original gameplay: the game state can be saved by a simultaneous click on both 3 buttons (right, middle, left). EEPROM can only be written a limited number of times, this functionality should be used with parcimony.
 
 ## Hardware
 
-You will need the following components:
-  - An ESP8266 board, e.g. ESP8266 WeMos D1-mini
+### List of components
+
+  - ESP board, e.g. ESP8266 WeMos D1-mini
   - 1K resistor x 3
   - Push button x 3
   - Buzzer 3V
   - SSD1306 I2C OLED 128x64
   - Breadboard and wire
 
-You may have to soldier the board to its pin grid.
+### Assembling
 
-Use the resistors as [pull-down resistors](https://en.wikipedia.org/wiki/Pull-up_resistor) for each of the push buttons (this is also well illustrated [here](https://github.com/GaryZ88/ArduinoGotchi)).
+The board PINs have to be connected to the components.
 
-Connect the board as follows:
-
-| Name           | Id   | PIN  |
+| Name           | Id   | ESP8266 Lolin (WeMos) D1-mini PIN |
 |----------------|------|------|
 | Screen SCK     | -    | D1   |
 | Screen SDA     | -    | D2   |
@@ -39,38 +40,54 @@ Connect the board as follows:
 | VDD            | -    | 3V3  |
 | Ground         | -    | G    |
 
-VDD is distributed to the push buttons and to the screen. More info about the setup can be accessed [here](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/).
+More info on the PIN mapping is available for common [ESP8266](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/) and [ESP32](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/) boards.
 
-ESP32 boards are not currently supported due to the lack of the tone function for ESP32.
+VDD is distributed to the push buttons and to the screen. The resistors are used as pull-down.
+
+### Example schema
+
+![esp32_schema](https://github.com/RBEGamer/TamagotchiESP32/blob/main/hardware/TamagotchiESP32_schematic_Steckplatine.png)
 
 ## Software
 
-The emulation requires a ROM converted to 12 bits:
+Clone this repository:
+```
+git clone https://github.com/Almarch/Nanogotchi.git
+```
 
-Put the rom.bin in the project folder, i.e. /ESPgotchi/
-Run the below commands, if success, it will generate a file named "rom_12bit.h" in the project folder
+Arduino IDE must be available.
+
+### Original P1 ROM
+
+The emulation requires a ROM converted to 12 bits.
+
+Put the `rom.bin` file in the project folder, i.e. `/Nanogotchi/`. Run the below commands, if success, it will generate a file named `rom_12bit.h` in the project folder:
 
 ```
-cd ESPgotchi
+cd Nanogotchi
 java TamaRomConvert rom.bin
 ```
 
-Clone this repository:
-```
-git clone https://github.com/Almarch/ESPgotchi.git
-```
+Then open the .ino file in Arduino IDE. You will then need to install specific libraries.
 
-Then open the .ino file in Arduino IDE. You will need to install the ESP8266 library as explained in [this tutorial](https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ie/). It consists in adding the following line:
+The code contains conditionally compiled parts. Depending on the target chip, comment the appropriate line between `#define ESP32` and `#define ESP8266` at the beginning of `Nanogotchi.ino`.
+
+### ESP8266
+
+Add the lines into `File/Preferences/Additional Boards Manager URLs`:
+
 ```
 https://dl.espressif.com/dl/package_esp32_index.json, http://arduino.esp8266.com/stable/package_esp8266com_index.json
 ```
-into File/Preferences/Additional Boards Manager URLs ; then looking for "esp8266" in Tools/Board and install the library.
+Then look for `esp8266` in `Tools/Board/Boards manager` and install the library.
 
-You will also need to install U8g2 library in Tool/Manage Libraries.
+You also need to install `U8g2` library in `Tool/Manage Libraries`.
+
+When the environment is ready, select the appropriate board, for instance: `Tools/Board/ESP8266 (X.X.X)/"LOLIN(WEMOS) D1 R2 & Mini`.
+Then select the port: `Tools/port/`, the port to which the board is connected should appear.
 
 ![PXL_20221216_131808264_4](https://user-images.githubusercontent.com/13364928/208108606-a6d87cba-38c4-466b-8830-3f7be8aa5aea.jpg)
 
-When the environment is ready, select the appropriate board: Tools/Board/ESP8266 (X.X.X)/"LOLIN(WEMOS) D1 R2 & Mini"
-And the port: Tools/port/. A single port should appear, corresponding to the one to which the board is connected via USB.
+## Launch
 
-Finally, use the right arrow: "UPLOAD" and let the mystery of life begin  👾
+Finally, use the upload command: ➡️ and let the mystery of life begin  👾
