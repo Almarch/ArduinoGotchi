@@ -18,7 +18,7 @@ An extra functionality is added to the original gameplay: the game state can be 
 
 ### List of components
 
-  - ESP board, e.g. ESP8266 WeMos D1-mini
+  - An ESP8266 or ESP32 board
   - 1K resistor x 3
   - Push button x 3
   - Buzzer 3V
@@ -29,7 +29,7 @@ An extra functionality is added to the original gameplay: the game state can be 
 
 The board PINs have to be connected to the components.
 
-| Name           | Id   | ESP8266 Lolin (WeMos) D1-mini PIN |
+| Name           | Id   | ESP8266 WeMos D1-mini PIN |
 |----------------|------|------|
 | Screen SCK     | -    | D1   |
 | Screen SDA     | -    | D2   |
