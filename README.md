@@ -1,14 +1,12 @@
-# NanoGotchi: A Tamagotchi emulator for ESP chips × Arduino IDE
+# <img src="https://github.com/Almarch/tamaR/blob/main/inst/www/icon.png" alt="TaMaGoTcHi" width="35"/> A Tamagotchi emulator for ESP chips × Arduino IDE
 
 ![PXL_20221216_121018390_2](https://user-images.githubusercontent.com/13364928/208096173-751cd1a7-0d5d-4028-bfaf-60bac058f4a5.jpg)
 
-## <img src="https://github.com/Almarch/tamaR/blob/main/inst/www/icon.png" alt="TaMaGoTcHi" width="35"/> Synopsis
-
 [TamaLIB](https://github.com/jcrona/tamalib) is a hardware-agnostic original P1 Tamagotchi emulator.
 
-It has been optimized and restructured to fit the [Arduino Uno](https://github.com/GaryZ88/ArduinoGotchi) board. Arduino environment comes with an [IDE](https://www.arduino.cc/en/software) designed for ease of use. However, the Arduino Uno board, powered by an ATmega328P chip, is not powerful enough to follow up the real-time emulation.
+It has been optimized and restructured to fit the [Arduino Uno](https://github.com/GaryZ88/ArduinoGotchi) board. Arduino environment comes with an [IDE](https://www.arduino.cc/en/software) designed for ease of use. However, the Arduino Uno board, powered by an ATmega328P chip, is not fast enough to follow up the real-time emulation.
 
-From the Arduino fork, TamaLIB has been adapted to [ESP8266](https://github.com/anabolyc/Tamagotchi) and [ESP32](https://github.com/RBEGamer/TamagotchiESP32), both chips being powerful enough for a real-time emulation. These two ESP forks are set on a different IDE.
+From the Arduino fork, TamaLIB has been adapted to [ESP8266](https://github.com/anabolyc/Tamagotchi) and [ESP32](https://github.com/RBEGamer/TamagotchiESP32), both chips being fast enough for a real-time emulation. These two ESP forks are set on a different IDE.
 
 The goal of the present fork is to bring together the beginner-friendliness of the Arduino IDE and the performance of the ESP chips. It relies on the developments from all previously listed projects.
 
@@ -68,7 +66,7 @@ cd Nanogotchi
 java TamaRomConvert rom.bin
 ```
 
-Then open the .ino file in Arduino IDE. You will then need to install specific libraries.
+Open the .ino file in Arduino IDE. You then need to install specific libraries.
 
 The code contains conditionally compiled parts. Depending on the target chip, comment the appropriate line between `#define ESP32` and `#define ESP8266` at the beginning of `Nanogotchi.ino`.
 
