@@ -29,16 +29,80 @@ An extra functionality is added to the original gameplay: the game state can be 
 
 The board PINs have to be connected to the components.
 
-| Name           | Id   | ESP8266 WeMos D1-mini PIN |
-|----------------|------|------|
-| Screen SCK     | -    | D1   |
-| Screen SDA     | -    | D2   |
-| Buzzer         | 14   | D5   |
-| Left Button    | 12   | D6   |
-| Middle Button  | 13   | D7   |
-| Right Button   | 15   | D8   |
-| VDD            | -    | 3V3  |
-| Ground         | -    | G    |
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th colspan=2>ESP8266</th>
+            <th colspan=2>ESP32</th>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <th>GPIO</th>
+            <th>pinout</th>
+            <th>GPIO</th>
+            <th>pinout</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Screen SCK</td>
+            <td>-</td>
+            <td>D1</td>
+            <td>-</td>
+            <td>D21</td>
+        </tr>
+        <tr>
+            <td>Screen SDA</td>
+            <td>-</td>
+            <td>D2</td>
+            <td>-</td>
+            <td>D22</td>
+        </tr>
+        <tr>
+            <td>Buzzer</td>
+            <td>14</td>
+            <td>D5</td>
+            <td>15</td>
+            <td>D15</td>
+        </tr>
+        <tr>
+            <td>Left button</td>
+            <td>12</td>
+            <td>D6</td>
+            <td>18</td>
+            <td>D18</td>
+        </tr>
+        <tr>
+            <td>Middle button</td>
+            <td>13</td>
+            <td>D7</td>
+            <td>19</td>
+            <td>D19</td>
+        </tr>
+        <tr>
+            <td>Right button</td>
+            <td>15</td>
+            <td>D8</td>
+            <td>23</td>
+            <td>D23</td>
+        </tr>
+        <tr>
+            <td>VDD</td>
+            <td>-</td>
+            <td>3V3</td>
+            <td>-</td>
+            <td>3V3</td>
+        </tr>
+        <tr>
+            <td>Ground</td>
+            <td>-</td>
+            <td>G</td>
+            <td>-</td>
+            <td>G</td>
+        </tr>
+    </tbody>
+</table>
 
 More info on the PIN mapping is available for common [ESP8266](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/) and [ESP32](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/) boards.
 
@@ -68,26 +132,29 @@ cd Nanogotchi
 java TamaRomConvert rom.bin
 ```
 
-Open the .ino file in Arduino IDE. You then need to install specific libraries.
+### Conditionally compiled code
 
-The code contains conditionally compiled parts. Depending on the target chip, comment the appropriate line between `#define ESP32` and `#define ESP8266` at the beginning of `Nanogotchi.ino`.
+The code contains conditionally compiled parts. Depending on the target chip, comment the appropriate line between `#define ESP32` or `#define ESP8266` at the beginning of `Nanogotchi.ino`.
 
-### ESP8266
+### Arduino IDE parameterization
+
+Open the .ino file in Arduino IDE.
 
 Add the lines into `File/Preferences/Additional Boards Manager URLs`:
 
 ```
 https://dl.espressif.com/dl/package_esp32_index.json, http://arduino.esp8266.com/stable/package_esp8266com_index.json
 ```
-Then look for `esp8266` in `Tools/Board/Boards manager` and install the library.
+Then look for `esp8266` and/or `esp32` in `Tools/Board/Boards manager`, then install the library.
 
-You also need to install `U8g2` library in `Tool/Manage Libraries`.
+Install `U8g2` library in `Tool/Manage Libraries`.
 
-When the environment is ready, select the appropriate board, for instance: `Tools/Board/ESP8266 (X.X.X)/"LOLIN(WEMOS) D1 R2 & Mini`.
-Then select the port: `Tools/port/`, the port to which the board is connected should appear.
+## Compilation & launch
+
+When the environment is ready, select the appropriate board as for instance: `Tools/Board/ESP8266 (X.X.X)/"LOLIN(WEMOS) D1 R2 & Mini`.
+
+Select the port: `Tools/port/`, the port to which the board is connected should appear.
 
 ![PXL_20221216_131808264_4](https://user-images.githubusercontent.com/13364928/208108606-a6d87cba-38c4-466b-8830-3f7be8aa5aea.jpg)
-
-## Launch
 
 Finally, use the upload command: ➡️ and let the mystery of life begin  👾

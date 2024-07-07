@@ -26,6 +26,9 @@
 #include "hardcoded_state.h"
 #include "savestate.h"
 
+#define ESP8266
+// #define ESP32
+
 /***** U8g2 SSD1306 Library Setting *****/
 #define DISPLAY_I2C_ADDRESS 0x3C
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
@@ -63,11 +66,19 @@ U8G2_SSD1306_128X64_NONAME_2_HW_I2C display(U8G2_R2);
 U8G2_SSD1306_128X64_NONAME_2_HW_I2C display(U8G2_MIRROR);
 #endif
 
+#ifdef ESP32
+#define PIN_BTN_L 18
+#define PIN_BTN_M 19
+#define PIN_BTN_R 23
+#define PIN_BUZZER 15
+#endif
+
+#ifdef ESP8266
 #define PIN_BTN_L 12 // D6
 #define PIN_BTN_M 13 // D7
 #define PIN_BTN_R 15 // D8
-//define PIN_BTN_SAVE 3
 #define PIN_BUZZER 14 // D5
+#endif
 
 /**** TamaLib Specific Variables ****/
 static uint16_t current_freq = 0; 
