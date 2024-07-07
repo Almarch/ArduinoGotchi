@@ -10,7 +10,7 @@ From the Arduino fork, TamaLIB has been adapted to [ESP8266](https://github.com/
 
 The goal of the present fork is to bring together the beginner-friendliness of the Arduino IDE and the performance of the ESP chips. It relies on the developments from all previously listed projects.
 
-The game icons have been copied from [MCUgotchi], a Tamalib implementation targetting STM32FO/STM32LO boards. This choice of aesthetics is motivated by there resemblance to the original toy ones.
+The game icons have been copied from [MCUgotchi](https://github.com/jcrona/mcugotchi) a Tamalib implementation targetting STM32FO/STM32LO boards. This choice of aesthetics is motivated by there resemblance to the original toy ones.
 
 An extra functionality is added to the original gameplay: the game state can be saved by a simultaneous click on both 3 buttons (right, middle, left). EEPROM can only be written a limited number of times, this functionality should be used with parcimony.
 
