@@ -151,9 +151,11 @@ Install `U8g2` library in `Tool/Manage Libraries`.
 
 You might have to install the USB-to-serial drivers for the board chipset. For instance, for some ESP32 development boards:
 
-- [CP210x chipset](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads)
+- [CP2102 chipset](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads)
 
 - [CH340 chipset](https://www.wch-ic.com/downloads/CH341SER_ZIP.html)
+
+- [FT232 chipset](https://ftdichip.com/drivers/vcp-drivers/)
 
 ## Compilation & launch
 
