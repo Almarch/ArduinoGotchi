@@ -149,6 +149,12 @@ Then look for `esp8266` and/or `esp32` in `Tools/Board/Boards manager`, then ins
 
 Install `U8g2` library in `Tool/Manage Libraries`.
 
+You might have to install the USB-to-serial drivers for the board chipset. For instance, for some ESP32 development boards:
+
+- [CP210x chipset](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads)
+
+- [CH340 chipset](https://www.wch-ic.com/downloads/CH341SER_ZIP.html)
+
 ## Compilation & launch
 
 When the environment is ready, select the appropriate board as for instance: `Tools/Board/ESP8266 (X.X.X)/"LOLIN(WEMOS) D1 R2 & Mini`.
