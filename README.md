@@ -50,14 +50,14 @@ The board PINs have to be connected to the components.
             <td>-</td>
             <td>D1</td>
             <td>-</td>
-            <td>D21</td>
+            <td>D22</td>
         </tr>
         <tr>
             <td>Screen SDA</td>
             <td>-</td>
             <td>D2</td>
             <td>-</td>
-            <td>D22</td>
+            <td>D21</td>
         </tr>
         <tr>
             <td>Buzzer</td>
