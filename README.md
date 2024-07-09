@@ -1,6 +1,6 @@
 # <img src="https://github.com/Almarch/tamaR/blob/main/inst/www/icon.png" alt="TaMaGoTcHi" width="35"/> A Tamagotchi emulator for ESP chips × Arduino IDE
 
-![PXL_20221216_121018390_2](https://user-images.githubusercontent.com/13364928/208096173-751cd1a7-0d5d-4028-bfaf-60bac058f4a5.jpg)
+<img src="https://user-images.githubusercontent.com/13364928/208096173-751cd1a7-0d5d-4028-bfaf-60bac058f4a5.jpg" width="800px" />
 
 [TamaLIB](https://github.com/jcrona/tamalib) is a hardware-agnostic original P1 Tamagotchi emulator.
 
@@ -108,9 +108,10 @@ More info on the PIN mapping is available for common [ESP8266](https://randomner
 
 VDD is distributed to the push buttons and to the screen. The resistors are used as pull-down.
 
-### Example schema
-
-![esp32_schema](https://github.com/RBEGamer/TamagotchiESP32/blob/main/hardware/TamagotchiESP32_schematic_Steckplatine.png)
+<p float="left">
+  <img src="https://user-images.githubusercontent.com/13364928/208108606-a6d87cba-38c4-466b-8830-3f7be8aa5aea.jpg" width="500" />
+  <img src="https://github.com/Almarch/Nanogotchi/assets/13364928/52308b68-49b5-4f31-b615-d082c9125f30" width="500" /> 
+</p>
 
 ## Software
 
@@ -152,10 +153,10 @@ Install `U8g2` library in `Tool/Manage Libraries`.
 You might have to install the USB-to-serial drivers for the board chipset. For instance, for some ESP32 development boards:
 
 - [CP2102 chipset](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads)
-
 - [CH340 chipset](https://www.wch-ic.com/downloads/CH341SER_ZIP.html)
-
 - [FT232 chipset](https://ftdichip.com/drivers/vcp-drivers/)
+
+Restart the computer after drivers installation.
 
 ## Compilation & launch
 
@@ -164,5 +165,3 @@ When the environment is ready, select the appropriate board as for instance: `To
 Select the port: `Tools/port/`, the port to which the board is connected should appear.
 
 Finally, use the upload command: ➡️. Some ESP32 development boards require a reset from the board reset button during the "Connecting..." step.
-
-![PXL_20221216_131808264_4](https://user-images.githubusercontent.com/13364928/208108606-a6d87cba-38c4-466b-8830-3f7be8aa5aea.jpg)
