@@ -159,10 +159,10 @@ You might have to install the USB-to-serial drivers for the board chipset. For i
 
 ## Compilation & launch
 
-When the environment is ready, select the appropriate board as for instance: `Tools/Board/ESP8266 (X.X.X)/"LOLIN(WEMOS) D1 R2 & Mini`.
+When the environment is ready, select the appropriate board as for instance: `Tools/Board/ESP32/ESP32 Dev Module`.
 
 Select the port: `Tools/port/`, the port to which the board is connected should appear.
 
-![PXL_20221216_131808264_4](https://user-images.githubusercontent.com/13364928/208108606-a6d87cba-38c4-466b-8830-3f7be8aa5aea.jpg)
+Finally, use the upload command: ➡️. Some ESP32 development boards require a reset from the board reset button during the "Connecting..." step.
 
-Finally, use the upload command: ➡️. Some ESP32 development boards require a reset (with the board reset button) during the "Connecting..." step.
+![PXL_20221216_131808264_4](https://user-images.githubusercontent.com/13364928/208108606-a6d87cba-38c4-466b-8830-3f7be8aa5aea.jpg)
