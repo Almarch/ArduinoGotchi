@@ -110,7 +110,7 @@ VDD is distributed to the push buttons and to the screen. The resistors are used
 
 <p float="left">
   <img src="https://user-images.githubusercontent.com/13364928/208108606-a6d87cba-38c4-466b-8830-3f7be8aa5aea.jpg" width="500" />
-  <img src="https://github.com/Almarch/Nanogotchi/assets/13364928/52308b68-49b5-4f31-b615-d082c9125f30" width="500" /> 
+  <img src="https://github.com/Almarch/Nanogotchi/assets/13364928/e7c7467e-63ee-4f2b-943c-0d868cc7da14" width="500" /> 
 </p>
 
 ## Software
