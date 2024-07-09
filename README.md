@@ -124,14 +124,25 @@ Arduino IDE must be available.
 
 ### Original P1 ROM
 
-The emulation requires a ROM converted to 12 bits.
+The emulation requires a ROM converted to 12 bits. Two options are available:
 
-Put the `rom.bin` file in the project folder, i.e. `/Nanogotchi/`. Run the below commands, if success, it will generate a file named `rom_12bit.h` in the project folder:
+- If you have a working Java environment, you can use the original program from [ArduinoGotchi](https://github.com/GaryZ88/ArduinoGotchi). Place the `rom.bin` file in the project folder and execute:
 
 ```
 cd Nanogotchi
 java TamaRomConvert rom.bin
 ```
+
+- If you have a working R environment and [tamaR](https://github.com/Almarch/tamaR) installed, you can export the 12 bits ROM into the project folder:
+
+```
+cd Nanogotchi
+R -e "library(tamaR); o = Tama(); o\$GetROM() |> tamaR:::nb2hex(header = 'static const unsigned char g_program_b12[] PROGMEM = {') |> write('rom_12bit.h')"
+```
+
+Using tamaR it is possible to substitute P1 sprites by P2 ones adding `p2(o);`.
+
+After the conversion step, a `rom_12bit.h` file should be available in the project folder.
 
 ### Conditionally compiled code
 
@@ -139,7 +150,7 @@ The code contains conditionally compiled parts. Depending on the target chip, co
 
 ### Arduino IDE parameterization
 
-Open the .ino file in Arduino IDE.
+Open the `.ino` file in Arduino IDE.
 
 Add the lines into `File/Preferences/Additional Boards Manager URLs`:
 
