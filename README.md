@@ -109,8 +109,8 @@ More info on the PIN mapping is available for common [ESP8266](https://randomner
 VDD is distributed to the push buttons and to the screen. The resistors are used as pull-down.
 
 <p float="left">
-  <img src="https://user-images.githubusercontent.com/13364928/208108606-a6d87cba-38c4-466b-8830-3f7be8aa5aea.jpg" width="500" />
-  <img src="https://github.com/Almarch/Nanogotchi/assets/13364928/e7c7467e-63ee-4f2b-943c-0d868cc7da14" width="500" /> 
+  <img src="https://user-images.githubusercontent.com/13364928/208108606-a6d87cba-38c4-466b-8830-3f7be8aa5aea.jpg" width="400px" />
+  <img src="https://github.com/Almarch/Nanogotchi/assets/13364928/e7c7467e-63ee-4f2b-943c-0d868cc7da14" width="400px" /> 
 </p>
 
 ## Software
