@@ -26,8 +26,8 @@
 #include "hardcoded_state.h"
 #include "savestate.h"
 
-#define ESP8266
-// #define ESP32
+//#define ESP8266
+#define ESP32
 
 /***** U8g2 SSD1306 Library Setting *****/
 #define DISPLAY_I2C_ADDRESS 0x3C
@@ -156,7 +156,9 @@ static int hal_handler(void) {
     Serial.println(incomingByte, DEC);
     if (incomingByte==48) {          // 0
       dumpStateToSerial();
-    }
+    } else if(incomingByte==57) {    // 9
+      eraseStateFromEEPROM();
+    } 
   }
 #endif
 #ifdef ENABLE_SERIAL_DEBUG_INPUT 

@@ -140,7 +140,7 @@ cd Nanogotchi
 R -e "library(tamaR); o = Tama(); o\$GetROM() |> tamaR:::nb2hex(header = 'static const unsigned char g_program_b12[] PROGMEM = {') |> write('rom_12bit.h')"
 ```
 
-Using tamaR it is possible to substitute P1 sprites by P2 ones adding `p2(o);`.
+Using tamaR it is possible to substitute P1 sprites by P2 ones adding `p2(o);`. Before switching sprites, erase the EEPROM with the command: `9` in serial connection.
 
 After the conversion step, a `rom_12bit.h` file should be available in the project folder.
 
