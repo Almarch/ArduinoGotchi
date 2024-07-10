@@ -37,7 +37,7 @@ The board PINs have to be connected to the components.
             <th colspan=2>ESP32</th>
         </tr>
         <tr>
-            <th>Name</th>
+            <th>Component</th>
             <th>GPIO</th>
             <th>pinout</th>
             <th>GPIO</th>
@@ -140,7 +140,7 @@ cd Nanogotchi
 R -e "library(tamaR); o = Tama(); o\$GetROM() |> tamaR:::nb2hex(header = 'static const unsigned char g_program_b12[] PROGMEM = {') |> write('rom_12bit.h')"
 ```
 
-Using tamaR it is possible to substitute P1 sprites by P2 ones adding `p2(o);`. Before switching sprites, erase the EEPROM with the command: `9` in serial connection.
+Using tamaR it is possible to substitute P1 sprites by P2 ones adding `p2(o);`. Before switching sprites, you might have to erase the EEPROM. From the Arduino IDE, start a serial connection and type the command: `9` to erase a previously saved games state.
 
 After the conversion step, a `rom_12bit.h` file should be available in the project folder.
 
@@ -157,7 +157,7 @@ Add the lines into `File/Preferences/Additional Boards Manager URLs`:
 ```
 https://dl.espressif.com/dl/package_esp32_index.json, http://arduino.esp8266.com/stable/package_esp8266com_index.json
 ```
-Then look for `esp8266` and/or `esp32` in `Tools/Board/Boards manager`, then install the library.
+Then look for `esp8266` and/or `esp32` in `Tools/Board/Boards manager` and install the library.
 
 Install `U8g2` library in `Tool/Manage Libraries`.
 
@@ -171,7 +171,7 @@ Restart the computer after drivers installation.
 
 ## Compilation & launch
 
-When the environment is ready, select the appropriate board as for instance: `Tools/Board/ESP32/ESP32 Dev Module`.
+When the environment is ready, select the appropriate board as for instance: `Tools/Board/esp32/ESP32 Dev Module`.
 
 Select the port: `Tools/port/`, the port to which the board is connected should appear.
 
